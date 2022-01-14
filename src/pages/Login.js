@@ -38,7 +38,6 @@ export default class Login extends Component {
     const { name } = this.state;
     this.setState({ load: true }, async () => {
       await createUser({ name });
-
       this.setState({ load: false, userValid: true });
     });
   };

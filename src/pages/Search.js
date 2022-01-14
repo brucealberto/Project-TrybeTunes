@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 export default class Search extends Component {
   render() {
@@ -8,17 +9,19 @@ export default class Search extends Component {
     //   const catchApi = fetch(searchAlbumAPI);
     // }
     return (
-      <form>
-        <input
-          type="text"
-          placeholder="Nome do Artista"
-          data-testid="search-artist-input"
-          value={ name }
-        />
+      <>
+        <form>
+          <input
+            type="text"
+            placeholder="Nome do Artista"
+            data-testid="search-artist-input"
+            value={ name }
+          />
 
-        <button type="button" data-testid="search-artist-button">Pequisar</button>
-      </form>
-
+          <button type="button" data-testid="search-artist-button">Pequisar</button>
+        </form>
+        <Header />
+      </>
     );
   }
 }

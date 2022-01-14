@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
-import Header from './components/Header';
+// import Header from './components/Header';
 import Album from './pages/Album';
 import Favorites from './pages/Favorites';
 import Login from './pages/Login';
@@ -14,48 +14,48 @@ class App extends React.Component {
     return (
       <BrowserRouter>
 
-        <Route path="/album/:id">
+        <Route exact path="/album/:id">
           <div data-testid="page-album">
             <Album />
           </div>
         </Route>
 
-        <Route path="/">
+        <Route exact path="/">
           <div data-testid="page-login">
             <Login />
           </div>
         </Route>
 
-        <Route path="/search">
+        <Route exact path="/search">
           <div data-testid="page-search">
             <Search />
           </div>
         </Route>
 
-        <Route path="/favorites">
+        <Route exact path="/favorites">
           <div data-testid="page-favorites">
             <Favorites />
           </div>
         </Route>
 
-        <Route path="/profile">
+        <Route exact path="/profile">
           <div data-testid="page-profile">
             <Profile />
           </div>
         </Route>
 
-        <Route path="/profile/edit">
+        <Route exact path="/profile/edit">
           <div data-testid="page-profile-edit">
             <ProfileEdit />
           </div>
         </Route>
 
-        <Route path="*">
+        <Route exact path="*">
           <div data-testid="page-not-found">
             <NotFound />
           </div>
         </Route>
-        <Header />
+        {/* <Header /> */}
       </BrowserRouter>
     );
   }
