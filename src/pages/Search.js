@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 export default class Search extends Component {
   render() {
     const { name } = this.props;
-      // catchRequisition = async() => {
-      //   const catchApi = fetch(searchAlbumAPI);
-      // }
+    // catchRequisition = async() => {
+    //   const catchApi = fetch(searchAlbumAPI);
+    // }
     return (
       <form>
         <input
@@ -19,8 +19,8 @@ export default class Search extends Component {
         <button type="button" data-testid="search-artist-button">Pequisar</button>
       </form>
 
-);
-}
+    );
+  }
 }
 
 Search.propTypes = {
