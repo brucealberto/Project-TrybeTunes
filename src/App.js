@@ -13,12 +13,12 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-
-        <Route exact path="/album/:id">
-          <div data-testid="page-album">
-            <Album />
-          </div>
-        </Route>
+        <div data-testid="page-album">
+          <Route exact path="/album/:id" render={ (props) => <Album { ...props } /> } />
+        </div>
+        {/* <div data-testid="page-album">
+          <Album />}
+          </div> */}
 
         <Route exact path="/">
           <div data-testid="page-login">
