@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
+import MusicCard from '../components/MusicCard';
 
 export default class Album extends Component {
   constructor() {
@@ -32,17 +33,17 @@ export default class Album extends Component {
     return (
       <div>
         <Header />
-        { getApiMusic.map((musics, index) => (index === 0 ? (
+        { getApiMusic.map((music, index) => (index === 0 ? (
           <div>
-            <h2 data-testid="artist-name">{musics.artistName}</h2>
-            <h2 data-testid="album-name">{musics.collectionName}</h2>
+            <h2 data-testid="artist-name">{music.artistName}</h2>
+            <h2 data-testid="album-name">{music.collectionName}</h2>
           </div>
         ) : (
-          <div key={ musics.trackName }>
-            <h3>{musics.trackName}</h3>
+          <div key={ music.trackId }>
+            <h3>{music.trackName}</h3>
             <audio
               data-testid="audio-component"
-              src={ musics.previewUrl }
+              src={ music.previewUrl }
               controls
             >
               <track kind="captions" />
@@ -51,6 +52,7 @@ export default class Album extends Component {
               <code>audio</code>
               .
             </audio>
+            <MusicCard music={ music } key={ music.trackId } />
           </div>
         ))) }
       </div>
