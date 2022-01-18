@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Header from '../components/Header';
 import getMusics from '../services/musicsAPI';
 import MusicCard from '../components/MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 export default class Album extends Component {
   constructor() {
@@ -11,11 +12,14 @@ export default class Album extends Component {
 
     this.state = {
       getApiMusic: [],
+      // isLoading: false,
+      getFavoriteSong: [],
     };
   }
 
-  componentDidMount() {
-    this.callApi();
+  async componentDidMount() {
+    await this.getFavoritesLocalStorage();
+    await this.callApi();
   }
 
   callApi = async () => {
@@ -28,13 +32,19 @@ export default class Album extends Component {
     this.setState({ getApiMusic: [...getMusic] });
   };
 
+  getFavoritesLocalStorage = async () => {
+    // this.setState({ isLoading: true });
+    const getFavoriteSong = await getFavoriteSongs();
+    this.setState({ getFavoriteSong: [getFavoriteSong] });
+  };
+
   render() {
-    const { getApiMusic } = this.state;
+    const { getApiMusic, getFavoriteSong } = this.state;
     return (
       <div>
         <Header />
-        { getApiMusic.map((music, index) => (index === 0 ? (
-          <div>
+        {getApiMusic.map((music, index) => (index === 0 ? (
+          <div key={ music.collectionId }>
             <h2 data-testid="artist-name">{music.artistName}</h2>
             <h2 data-testid="album-name">{music.collectionName}</h2>
           </div>
@@ -47,19 +57,22 @@ export default class Album extends Component {
               controls
             >
               <track kind="captions" />
-              O seu navegador não suporta o
-              elemento
+              O seu navegador não suporta o elemento
               <code>audio</code>
               .
             </audio>
-            <MusicCard music={ music } key={ music.trackId } />
+            <MusicCard
+              music={ music }
+              // key={ music.trackId }
+              checked={ getFavoriteSong }
+            />
           </div>
-        ))) }
+        )))}
       </div>
     );
   }
 }
 
 Album.propTypes = {
-  match: PropTypes.string.isRequired,
-};
+  id: PropTypes.string,
+}.isrequired;

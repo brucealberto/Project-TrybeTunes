@@ -4,11 +4,11 @@ import { addSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 export default class MusicCard extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
+    const { music, checked } = props;
     this.state = {
-      favoriteSong: false,
+      favoriteSong: checked[0].some(({ trackId }) => trackId === music.trackId),
       isLoading: false,
     };
   }
@@ -17,7 +17,10 @@ export default class MusicCard extends Component {
     this.setState({ isLoading: true });
     const { music } = this.props;
     await addSong(music);
-    this.setState({ favoriteSong: true, isLoading: false });
+    this.setState((prevState) => ({
+      favoriteSong: !prevState.favoriteSong,
+      isLoading: false,
+    }));
   };
 
   render() {
@@ -25,14 +28,14 @@ export default class MusicCard extends Component {
     const { favoriteSong, isLoading } = this.state;
     return (
       <div>
-        { isLoading && <Loading />}
+        {isLoading && <Loading />}
         <label htmlFor={ music.trackId }>
           <p>Favorita</p>
           <input
             type="checkbox"
             id={ music.trackId }
             data-testid={ `checkbox-music-${music.trackId}` }
-            onClick={ this.callApi }
+            onChange={ this.callApi }
             checked={ favoriteSong }
           />
         </label>
